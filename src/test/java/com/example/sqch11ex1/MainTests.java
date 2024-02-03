@@ -55,6 +55,7 @@ class MainTests {
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.amount").value(1000));
+
 	}
 
 }
