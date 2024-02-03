@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @RestController
 public class PaymentController {
+
+    Logger logger = Logger.getLogger(PaymentController.class.getName());
 
     private final PaymentProxy paymentProxy;
 
@@ -22,6 +25,11 @@ public class PaymentController {
             @RequestBody Payment payment
     ) {
         String requestId = UUID.randomUUID().toString();
-        return paymentProxy.createPayment(requestId, payment);
+        Payment returnedPayment = paymentProxy.createPayment(requestId, payment);
+
+        logger.info("Create with ID " + requestId +
+                " ;Payment Amount: " + returnedPayment.getAmount());
+
+        return returnedPayment;
     }
 }
